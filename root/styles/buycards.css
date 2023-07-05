@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+header {
+  background-color: #306bb3;
+  display: flex;
+  justify-content: space-between;
+}
+
+header > img {
+  width: 50%;
+  max-width: 150px;
+  margin-left: 3%;
+}
+
+header > div {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.btnDark {
+  background-color: white;
+  color: #306bb3;
+  border: none;
+  min-width: 82px;
+  min-height: 38px;
+  border-radius: 4px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 90px;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 48px;
+  color: #486284;
+}
+
+.info p {
+  color: #1a202c;
+  font-size: 18px;
+}
+
+.nav {
+  display: flex;
+  width: 90%;
+}
+
+.navType {
+  margin: 2% 0;
+  width: 100%;
+  padding-bottom: 1%;
+  margin-bottom: 1%;
+  border-bottom: 2px solid #90a3bf;
+  text-align: center;
+}
+
+.navType a {
+  color: black;
+}
+
+.navType:hover {
+  font-weight: bold;
+  border-bottom: 2px solid #1a202c;
+}
+
+.grid-container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  margin-left: 2%;
+}
+
+.more-cards {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 520px;
+  padding: 50px;
+}
+
+.btnMore {
+  color: white;
+  background-color: #306bb3;
+  border: none;
+  border-radius: 4px;
+  width: 156px;
+  height: 44px;
+}
+
+.more-cards > p {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #306bb3;
+}
+
+footer {
+  display: flex;
+  background-color: #306bb3;
+  color: white;
+  padding: 30px;
+  align-items: center;
+}
+
+.redes {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+footer img {
+  max-width: 150px;
+  max-height: 55px;
+}
+
+footer p {
+  width: 50%;
+}
+
+.icon {
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+}
+
+.links {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.links li {
+  font-weight: 500;
+  font-size: 16px;
+}
