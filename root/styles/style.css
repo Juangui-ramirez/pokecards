@@ -5,3 +5,122 @@
     list-style: none;
     font-family: "Plus Jakarta Sans", sans-serif;
   }
+
+  header {
+    background-color: #306bb3;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  header > img {
+    width: 50%;
+    max-width: 150px;
+    margin-left: 3%;
+  }
+  
+  header > div {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .list {
+    display: flex;
+    list-style: none;
+    gap: 50px;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .btnDark{
+    background-color: white;
+    color: #306bb3;
+    border: none;
+    min-width: 82px;
+    min-height: 38px;
+    border-radius: 4px;
+  }
+  
+  main {
+    display: flex;
+    padding: 80px 30px;
+    align-items: center;
+  }
+  
+  section {
+    width: 50%;
+  }
+  
+  main > img {
+    width: 50%;
+  }
+  
+  section > article {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 90%;
+  }
+  
+  h1 {
+    font-size: 40px;
+  }
+  
+  section > article > div > a {
+    color: black;
+    padding: 30px;
+    font-weight: bold;
+  }
+  
+  footer {
+    display: flex;
+    background-color: #306bb3;
+    color: white;
+    padding: 30px;
+    align-items: center;
+  }
+  
+  .redes {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  footer img {
+    max-width: 150px;
+    max-height: 55px;
+  }
+  
+  footer p {
+    width: 50%;
+  }
+  
+  .icon {
+    display: flex;
+    gap: 30px;
+    font-size: 15px;
+  }
+  
+  .links {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+  .links li {
+    font-weight: 500;
+    font-size: 16px;
+  }
