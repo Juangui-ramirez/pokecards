@@ -27,7 +27,7 @@ const getPokemon = async () => {
             <div class = "footerCard">
                 <p>Exp ${dataPokemon.base_experience}</p>
                 <a href = "./pokemonDetails.html?pokemon=${pokemon.id}">
-                <button>Buy</button>
+                <button class = "btnCard">Buy</button>
                 </a>
             </div>`;
 
