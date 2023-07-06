@@ -2,7 +2,9 @@ let url = "https://pokeapi.co/api/v2";
 let offset = 0;
 let limit = 20;
 let countCards = 0;
+let pokemons = [];
 // let type = "";
+const container = document.querySelector(".grid-container");
 
 const renderCards = (pokemons) => {
   pokemons.forEach(async (pokemon) => {
@@ -51,28 +53,53 @@ const renderCards = (pokemons) => {
   });
 }
 
-let pokemons = [];
-
 const getPokemon = async () => {
   try {
     // Get data for API and results its an URL for every pokemon
-    let pokeList;
-    const allPokemon = await fetch(`${url}/pokemon?limit=100000&offset=0`);
-    const PokeAlldata = await allPokemon.json();
-    pokemons = await PokeAlldata.results.map(async (p) => {
-      const urlPokemon = await fetch(p.url);
-      const dataPokemon = await urlPokemon.json();
-      return dataPokemon.results
-    })
+    pokemons = localStorage.getItem('pokemons'); // Retrieve cached pokemons from local storage
+    if (!pokemons) {
+      const allPokemon = await fetch(`${url}/pokemon?limit=100000&offset=0`);
+      const allPokeData = await allPokemon.json();
+      const parsedPokemonData = await Promise.all(allPokeData.results.map(async (p) => {
+        const urlPokemon = await fetch(p.url);
+        return  urlPokemon.json();
+        // return dataPokemon.results
+      }))
 
-    console.log(pokemons);
-    // renderCards(PokeAlldata.results.slice(0 , 20));
-    
-    
-    //Replace offset for limit
-    offset += limit;
+      pokemons = parsedPokemonData.map(({ name, sprites, types, base_experience }) => (
+        { name, sprites: sprites.other.home , types, base_experience }
+      ))
+
+      console.log(pokemons)
+      localStorage.setItem('pokemons', JSON.stringify(pokemons)); // Cache pokemons in local storage
+    } else {
+      //Get pkes from cache
+      pokemons = JSON.parse(pokemons);
+    }
+    renderCards(pokemons.slice(offset, limit));
   } catch (error) {
+    console.log(error)
     alert("Url not found");
+  }
+};
+
+//Filter Pokemon Cards
+
+const filterByType = async (type) => {
+  container.innerHTML = ''
+  offset = 0
+  limit = 20
+  countCards = 0
+  if (type !== 'all') {
+    const filteredPokemon = pokemons.filter(pokemon => {
+      return pokemon.types.some(pokemonType => {
+        return pokemonType.type.name === type;
+      });
+    });
+  
+    renderCards(filteredPokemon.slice(offset, limit));
+  } else {
+    renderCards(pokemons.slice(offset, limit))
   }
 };
 
@@ -80,7 +107,12 @@ getPokemon();
 
 //Get more cards
 const btnMore = document.querySelector(".btnMore");
-btnMore.addEventListener("click", getPokemon);
+btnMore.addEventListener("click", () => {
+  offset += limit
+  limit += limit
+
+  renderCards(pokemons.slice(offset, limit))
+});
 
 const typeList = document.querySelectorAll(".navType");
 
@@ -88,6 +120,6 @@ typeList.forEach((typeText) => {
   typeText.addEventListener("click", (event) => {
     event.preventDefault();
     const type = typeText.textContent.toLowerCase();
-
+    filterByType(type)
   });
 });
