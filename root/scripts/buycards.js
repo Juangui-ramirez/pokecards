@@ -8,9 +8,6 @@ const container = document.querySelector(".grid-container");
 
 const renderCards = (pokemons) => {
   pokemons.forEach(async (pokemon) => {
-    // const urlPokemon = await fetch(pokemon.url);
-    // const dataPokemon = await urlPokemon.json();
-
     //Create card Pokemon
     let pokeCard = document.createElement("div");
     pokeCard.className = "pokeCard";
@@ -64,7 +61,6 @@ const getPokemon = async () => {
         allPokeData.results.map(async (p) => {
           const urlPokemon = await fetch(p.url);
           return urlPokemon.json();
-          // return dataPokemon.results
         })
       );
 
@@ -80,18 +76,16 @@ const getPokemon = async () => {
 
       localStorage.setItem("pokemons", JSON.stringify(pokemons)); // Cache pokemons in local storage
     } else {
-      //Get pkes from cache
+      //Get pokes from cache
       pokemons = JSON.parse(pokemons);
     }
     renderCards(pokemons.slice(offset, limit));
   } catch (error) {
-    console.log(error);
     alert("Url not found");
   }
 };
 
 //Filter Pokemon Cards
-
 const filterByType = async (type = "all", clear = true) => {
   pokemonType = type;
   if (clear) {
@@ -120,12 +114,11 @@ const btnMore = document.querySelector(".btnMore");
 btnMore.addEventListener("click", () => {
   offset += limit;
   limit += limit;
-  filterByType(pokemonType,false)
-  // renderCards(pokemons.slice(offset, limit));
+  filterByType(pokemonType, false);
 });
 
+//Get Type pokemon from nav
 const typeList = document.querySelectorAll(".navType");
-
 typeList.forEach((typeText) => {
   typeText.addEventListener("click", (event) => {
     event.preventDefault();
