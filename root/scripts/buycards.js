@@ -3,7 +3,7 @@ let offset = 0;
 let limit = 20;
 let countCards = 0;
 let pokemons = [];
-// let type = "";
+let pokemonType = "all";
 const container = document.querySelector(".grid-container");
 
 const renderCards = (pokemons) => {
@@ -51,55 +51,65 @@ const renderCards = (pokemons) => {
       }
     });
   });
-}
+};
 
 const getPokemon = async () => {
   try {
     // Get data for API and results its an URL for every pokemon
-    pokemons = localStorage.getItem('pokemons'); // Retrieve cached pokemons from local storage
+    pokemons = localStorage.getItem("pokemons"); // Retrieve cached pokemons from local storage
     if (!pokemons) {
       const allPokemon = await fetch(`${url}/pokemon?limit=100000&offset=0`);
       const allPokeData = await allPokemon.json();
-      const parsedPokemonData = await Promise.all(allPokeData.results.map(async (p) => {
-        const urlPokemon = await fetch(p.url);
-        return  urlPokemon.json();
-        // return dataPokemon.results
-      }))
+      const parsedPokemonData = await Promise.all(
+        allPokeData.results.map(async (p) => {
+          const urlPokemon = await fetch(p.url);
+          return urlPokemon.json();
+          // return dataPokemon.results
+        })
+      );
 
-      pokemons = parsedPokemonData.map(({ name, sprites, types, base_experience }) => (
-        { name, sprites: sprites.other.home , types, base_experience }
-      ))
+      pokemons = parsedPokemonData.map(
+        ({ name, sprites, types, base_experience, id }) => ({
+          name,
+          sprites: sprites.other.home,
+          types,
+          base_experience,
+          id,
+        })
+      );
 
-      console.log(pokemons)
-      localStorage.setItem('pokemons', JSON.stringify(pokemons)); // Cache pokemons in local storage
+      localStorage.setItem("pokemons", JSON.stringify(pokemons)); // Cache pokemons in local storage
     } else {
       //Get pkes from cache
       pokemons = JSON.parse(pokemons);
     }
     renderCards(pokemons.slice(offset, limit));
   } catch (error) {
-    console.log(error)
+    console.log(error);
     alert("Url not found");
   }
 };
 
 //Filter Pokemon Cards
 
-const filterByType = async (type) => {
-  container.innerHTML = ''
-  offset = 0
-  limit = 20
-  countCards = 0
-  if (type !== 'all') {
-    const filteredPokemon = pokemons.filter(pokemon => {
-      return pokemon.types.some(pokemonType => {
+const filterByType = async (type = "all", clear = true) => {
+  pokemonType = type;
+  if (clear) {
+    container.innerHTML = "";
+    offset = 0;
+    limit = 20;
+    countCards = 0;
+  }
+  if (type !== "all") {
+    const filteredPokemon = pokemons.filter((pokemon) => {
+      return pokemon.types.some((pokemonType) => {
         return pokemonType.type.name === type;
       });
     });
-  
+
     renderCards(filteredPokemon.slice(offset, limit));
   } else {
-    renderCards(pokemons.slice(offset, limit))
+    renderCards(pokemons.slice(offset, limit));
   }
 };
 
@@ -108,10 +118,10 @@ getPokemon();
 //Get more cards
 const btnMore = document.querySelector(".btnMore");
 btnMore.addEventListener("click", () => {
-  offset += limit
-  limit += limit
-
-  renderCards(pokemons.slice(offset, limit))
+  offset += limit;
+  limit += limit;
+  filterByType(pokemonType,false)
+  // renderCards(pokemons.slice(offset, limit));
 });
 
 const typeList = document.querySelectorAll(".navType");
@@ -120,6 +130,6 @@ typeList.forEach((typeText) => {
   typeText.addEventListener("click", (event) => {
     event.preventDefault();
     const type = typeText.textContent.toLowerCase();
-    filterByType(type)
+    filterByType(type);
   });
 });
