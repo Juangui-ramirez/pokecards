@@ -1,0 +1,23 @@
+body.darkMode {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.darkMode .headerCard {
+  color: black;
+}
+
+.darkMode .footerCard {
+  color: black;
+}
+
+.darkMode .info > h1,
+.darkMode .info > p,
+.darkMode a,
+.darkMode .titleBlog {
+  color: white;
+}
+
+.darkMode .navType:hover {
+    border-bottom: 2px solid #1b4597;
+  }
