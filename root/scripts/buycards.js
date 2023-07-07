@@ -22,7 +22,7 @@ const renderCards = (pokemons) => {
       <img class="imgPoke" src="${pokemon.sprites.other["home"].front_default}">
       <div class="footerCard">
         <p>Exp ${pokemon.base_experience}</p>
-        <a href="./pokemonDetails.html?pokemon=${pokemon.id}">
+        <a href="./pokemondetails.html?pokemon=${pokemon.id}">
           <button class="btnCard">Buy</button>
         </a>
       </div>`;
@@ -64,6 +64,7 @@ const getPokemon = async () => {
       sprites: {},
       types: [],
       base_experience: 0,
+      id: pokemon.id,
     }));
 
     await Promise.all(
@@ -74,9 +75,9 @@ const getPokemon = async () => {
         pokemon.sprites = data.sprites;
         pokemon.types = data.types;
         pokemon.base_experience = data.base_experience;
+        pokemon.id = data.id;
       })
     );
-
     renderCards(pokemons.slice(offset, limit));
   } catch (error) {
     alert("Url not found");
@@ -86,18 +87,9 @@ const getPokemon = async () => {
 //Get more cards
 const loadMoreCards = () => {
   offset += limit;
+  const limitLoadMoreCards = offset + limit;
 
-  if (currentType === "all") {
-    renderCards(pokemons.slice(0, offset + limit));
-  } else {
-    const filteredPokemon = pokemons.filter((pokemon) => {
-      return pokemon.types.some((pokemonType) => {
-        return pokemonType.type.name === currentType;
-      });
-    });
-
-    renderCards(filteredPokemon.slice(0, offset + limit));
-  }
+  showFilteredCards(limitLoadMoreCards);
 };
 
 //Filter Pokemon Cards
@@ -105,17 +97,7 @@ const filterByType = (type) => {
   offset = 0;
   currentType = type;
 
-  if (type === "all") {
-    renderCards(pokemons.slice(0, limit));
-  } else {
-    const filteredPokemon = pokemons.filter((pokemon) => {
-      return pokemon.types.some((pokemonType) => {
-        return pokemonType.type.name === type;
-      });
-    });
-
-    renderCards(filteredPokemon.slice(0, limit));
-  }
+  showFilteredCards(limit);
 };
 
 getPokemon();
@@ -133,3 +115,21 @@ typeList.forEach((typeText) => {
     filterByType(type);
   });
 });
+
+function showFilteredCards(limit) {
+  if (currentType === "all") {
+    renderCards(pokemons.slice(0, limit));
+  } else {
+    const filteredPokemon = getFilteredPokemon();
+
+    renderCards(filteredPokemon.slice(0, limit));
+  }
+}
+
+function getFilteredPokemon() {
+  return pokemons.filter((pokemon) => {
+    return pokemon.types.some(
+      (pokemonType) => pokemonType.type.name === currentType
+    );
+  });
+}
