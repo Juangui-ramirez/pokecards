@@ -3,6 +3,7 @@ let offset = 0;
 let limit = 20;
 let countCards = 0;
 let pokemons = [];
+let typesPokemon = [];
 let pokemonType = "all";
 const container = document.querySelector(".grid-container");
 
@@ -100,7 +101,6 @@ const filterByType = async (type = "all", clear = true) => {
         return pokemonType.type.name === type;
       });
     });
-
     renderCards(filteredPokemon.slice(offset, limit));
   } else {
     renderCards(pokemons.slice(offset, limit));
@@ -108,6 +108,30 @@ const filterByType = async (type = "all", clear = true) => {
 };
 
 getPokemon();
+
+const getTypes = async () => {
+  const resType = await fetch(`${url}/type`);
+  const allTypes = await resType.json();
+  typesPokemon = allTypes.results.map((type) => type.name);
+  typesPokemon.length = typesPokemon.length - 2;
+  renderNav();
+};
+
+getTypes();
+
+const renderNav = () => {
+  const navTypes = document.querySelector(".nav");
+  typesPokemon.forEach(async (typePokemon) => {
+    let liType = document.createElement("li");
+    liType.className = "navType";
+    liType.innerHTML = `
+        <a  href="#">${typePokemon}</a>
+      `;
+    //Select div container and push cards
+    navTypes.appendChild(liType);
+  });
+  eventNavType();
+};
 
 //Get more cards
 const btnMore = document.querySelector(".btnMore");
@@ -118,11 +142,15 @@ btnMore.addEventListener("click", () => {
 });
 
 //Get Type pokemon from nav
-const typeList = document.querySelectorAll(".navType");
-typeList.forEach((typeText) => {
-  typeText.addEventListener("click", (event) => {
-    event.preventDefault();
-    const type = typeText.textContent.toLowerCase();
-    filterByType(type);
+
+function eventNavType() {
+  const typeList = document.querySelectorAll(".navType");
+  typeList.forEach((typeText) => {
+    typeText.addEventListener("click", (event) => {
+      event.preventDefault();
+      const aElement = typeText.querySelector("a");
+      const type = aElement.textContent.toLowerCase();
+      filterByType(type);
+    });
   });
-});
+}
