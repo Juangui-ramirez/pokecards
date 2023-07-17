@@ -11,10 +11,11 @@ const renderCards = (pokemons) => {
   pokemons.forEach(async (pokemon) => {
     //Create card Pokemon
     let pokeCard = document.createElement("div");
+    const capitalizedName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     pokeCard.className = "pokeCard";
     pokeCard.innerHTML = `
           <div class = "headerCard">
-              <p>${pokemon.name}</p>
+              <p>${capitalizedName}</p>
               <i class = "far fa-heart heart"></i>
           </div>
           <img class = "imgPoke" src = "${pokemon.sprites.front_default}">
@@ -122,10 +123,12 @@ getTypes();
 const renderNav = () => {
   const navTypes = document.querySelector(".nav");
   typesPokemon.forEach(async (typePokemon) => {
+    const capitalizedType = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
+
     let liType = document.createElement("li");
     liType.className = "navType";
     liType.innerHTML = `
-        <a  href="#">${typePokemon}</a>
+        <a  href="#">${capitalizedType}</a>
       `;
     //Select div container and push cards
     navTypes.appendChild(liType);
