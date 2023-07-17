@@ -19,5 +19,18 @@ body.darkMode {
 }
 
 .darkMode .navType:hover {
-    border-bottom: 2px solid #072258;
+    border-bottom: 2px solid #075819;
   }
+
+.darkMode .link:active {
+  color: aqua;
+}
+
+.darkMode .navType > a.activeLink {
+  color: rgb(55, 244, 3);
+  font-weight: bold;
+}
+
+.darkMode .navType.activeLink {
+  border-bottom: 2px solid  rgb(152, 241, 8);
+}

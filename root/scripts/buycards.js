@@ -15,7 +15,7 @@ const renderCards = (pokemons) => {
     pokeCard.innerHTML = `
           <div class = "headerCard">
               <p>${pokemon.name}</p>
-              <i class = "fa-sharp fa-regular fa-heart"></i>
+              <i class = "far fa-heart heart"></i>
           </div>
           <img class = "imgPoke" src = "${pokemon.sprites.front_default}">
           <div class = "footerCard">
@@ -139,6 +139,7 @@ btnMore.addEventListener("click", () => {
   offset += limit;
   limit += limit;
   filterByType(pokemonType, false);
+  heartRed();
 });
 
 //Get Type pokemon from nav
@@ -146,11 +147,42 @@ btnMore.addEventListener("click", () => {
 function eventNavType() {
   const typeList = document.querySelectorAll(".navType");
   typeList.forEach((typeText) => {
-    typeText.addEventListener("click", (event) => {
+    const linkElement = typeText.querySelector("a");
+
+    linkElement.addEventListener("click", (event) => {
       event.preventDefault();
-      const aElement = typeText.querySelector("a");
-      const type = aElement.textContent.toLowerCase();
+      const type = linkElement.textContent.toLowerCase();
+
+      // Remove the 'activeLink' class from all <li> elements except the selected one
+      typeList.forEach((typeText) => {
+        const otherLinkElement = typeText.querySelector("a");
+        const otherLiElement = typeText;
+        if (otherLinkElement !== linkElement) {
+          otherLinkElement.classList.remove("activeLink");
+          otherLiElement.classList.remove("activeLink");
+        }
+      });
+
+      // Add the 'activeLink' class to the selected <a> and <li> elements
+      linkElement.classList.add("activeLink");
+      typeText.classList.add("activeLink");
+
       filterByType(type);
+      heartRed();
     });
   });
 }
+
+
+function heartRed() {
+  const heartIcons = document.querySelectorAll(".heart");
+
+  heartIcons.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      icon.classList.toggle("redHeart");
+      icon.classList.toggle("far");
+      icon.classList.toggle("fas");
+    });
+  });
+}
+heartRed();
