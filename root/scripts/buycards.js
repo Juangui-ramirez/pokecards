@@ -59,6 +59,7 @@ const getPokemon = async () => {
     if (!pokemons) {
       const allPokemon = await fetch(`${url}/pokemon?limit=100000&offset=0`);
       const allPokeData = await allPokemon.json();
+    
       const parsedPokemonData = await Promise.all(
         allPokeData.results.map(async (p) => {
           const urlPokemon = await fetch(p.url);
@@ -69,7 +70,7 @@ const getPokemon = async () => {
       pokemons = parsedPokemonData.map(
         ({ name, sprites, types, base_experience, id }) => ({
           name,
-          sprites: sprites.other.home,
+          sprites: sprites.other[official-artwork],
           types,
           base_experience,
           id,
@@ -119,7 +120,7 @@ const getTypes = async () => {
 };
 
 getTypes();
-
+console.log(pokemons);
 const renderNav = () => {
   const navTypes = document.querySelector(".nav");
   typesPokemon.forEach(async (typePokemon) => {
