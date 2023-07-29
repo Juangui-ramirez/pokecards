@@ -23,3 +23,7 @@ if (getTheme === "Dark") {
   document.body.classList = "darkMode";
   btnDark.textContent = "Light mode";
 }
+
+const redirect = (url) =>{
+  window.location.href = `${window.location.hostname === 'juangui-ramirez.github.io' ? '/pokecards' : ''}${url}`
+};
