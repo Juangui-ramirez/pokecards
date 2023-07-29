@@ -70,7 +70,7 @@ const getPokemon = async () => {
       pokemons = parsedPokemonData.map(
         ({ name, sprites, types, base_experience, id }) => ({
           name,
-          sprites: sprites.other[official-artwork],
+          sprites: sprites.other['official-artwork'],
           types,
           base_experience,
           id,
