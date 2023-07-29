@@ -24,6 +24,6 @@ if (getTheme === "Dark") {
   btnDark.textContent = "Light mode";
 }
 
-const redirect = (url) =>{
+function redirect(url){
   window.location.href = `${window.location.hostname === 'juangui-ramirez.github.io' ? '/pokecards' : ''}${url}`
 };
