@@ -84,6 +84,7 @@ const getPokemon = async () => {
     }
     renderCards(pokemons.slice(offset, limit));
   } catch (error) {
+    debugger;
     console.error(error)
     alert("Url not found");
   }
