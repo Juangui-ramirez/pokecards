@@ -1,0 +1,32 @@
+section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8% 5%;
+}
+
+article {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+}
+
+h1 {
+  font-size: 2em;
+  text-transform: uppercase;
+}
+
+article > div {
+  width: 100%;
+}
+
+section > article > div > a {
+  color: black;
+  font-weight: bold;
+  margin: 5% 5%;
+}
+
+main img {
+  max-width: 40%;
+}
