@@ -3,15 +3,18 @@ let offset = 0;
 let limit = 20;
 let countCards = 0;
 let pokemons = [];
-let typesPokemon = [];
+let typesPokemon = ["All"];
 let pokemonType = "all";
+let currentIndex = 0;
+
 const container = document.querySelector(".grid-container");
 
 const renderCards = (pokemons) => {
   pokemons.forEach(async (pokemon) => {
     //Create card Pokemon
     let pokeCard = document.createElement("div");
-    const capitalizedName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    const capitalizedName =
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     pokeCard.className = "pokeCard";
     pokeCard.innerHTML = `
           <div class = "headerCard">
@@ -48,7 +51,7 @@ const renderCards = (pokemons) => {
         }, 500);
         imgPoke.classList.toggle("flipped");
       }
-    });
+    }); 
   });
 };
 
@@ -69,13 +72,14 @@ const getPokemon = async () => {
       pokemons = parsedPokemonData.map(
         ({ name, sprites, types, base_experience, id }) => ({
           name,
-          sprites: sprites.other.home,
+          sprites: sprites.other["official-artwork"],
           types,
           base_experience,
           id,
         })
+        
       );
-
+      
       localStorage.setItem("pokemons", JSON.stringify(pokemons)); // Cache pokemons in local storage
     } else {
       //Get pokes from cache
@@ -113,34 +117,45 @@ getPokemon();
 const getTypes = async () => {
   const resType = await fetch(`${url}/type`);
   const allTypes = await resType.json();
-  typesPokemon = allTypes.results.map((type) => type.name);
-  typesPokemon.length = typesPokemon.length - 2;
-  renderNav();
+  const newTypes = allTypes.results.map((type) =>
+    capitalizeFirstLetter(type.name)
+  );
+  newTypes.length = newTypes.length - 2;
+
+  for (const type of newTypes) {
+    typesPokemon.push(type);
+  }
+};
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 };
 
 getTypes();
 
-const renderNav = () => {
-  const navTypes = document.querySelector(".nav");
-  typesPokemon.forEach(async (typePokemon) => {
-    const capitalizedType = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
+const updateTypes = () => {
+  const navTypeElements = document.querySelectorAll(".navType a");
 
-    let liType = document.createElement("li");
-    liType.className = "navType";
-    liType.innerHTML = `
-        <a  href="#">${capitalizedType}</a>
-      `;
-    //Select div container and push cards
-    navTypes.appendChild(liType);
-  });
-  eventNavType();
+  for (let i = 0; i < 5; i++) {
+    const nextIndex = (currentIndex + i) % typesPokemon.length;
+    navTypeElements[i].textContent = typesPokemon[nextIndex];
+  }
 };
+
+document.getElementById("leftIcon").addEventListener("click", () => {
+  currentIndex = (currentIndex - 4 + typesPokemon.length) % typesPokemon.length;
+  updateTypes();
+});
+
+document.getElementById("rightIcon").addEventListener("click", () => {
+  currentIndex = (currentIndex + 4) % typesPokemon.length;
+  updateTypes();
+});
 
 //Get more cards
 const btnMore = document.querySelector(".btnMore");
 btnMore.addEventListener("click", () => {
-  offset += limit;
-  limit += limit;
+  offset = limit;
+  limit = limit + 20;
   filterByType(pokemonType, false);
   heartRed();
 });
@@ -176,6 +191,7 @@ function eventNavType() {
   });
 }
 
+eventNavType();
 
 function heartRed() {
   const heartIcons = document.querySelectorAll(".heart");
@@ -189,3 +205,4 @@ function heartRed() {
   });
 }
 heartRed();
+
