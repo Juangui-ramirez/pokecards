@@ -15,7 +15,6 @@ article{
 
 article div{
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   gap: 2%;
@@ -36,4 +35,23 @@ article div img{
 .subtitle{
   width: 50%;
   text-align: center;
+}
+
+@media (min-width: 320px) and (max-width: 576px) {
+.titleBlog{
+  font-size: 2.5em;
+}
+
+article{
+  padding: 5%;
+}
+
+article div{
+  flex-direction: column;
+}
+ 
+article div img{
+  max-width: 80%;
+  margin: 5%;
+}
 }
