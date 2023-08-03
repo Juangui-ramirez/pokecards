@@ -138,8 +138,9 @@ getTypes();
 const updateTypes = () => {
   const navTypeElements = document.querySelectorAll(".navType a");
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < navTypeElements.length; i++) {
     const nextIndex = (currentIndex + i) % typesPokemon.length;
+    console.log(navTypeElements[i]);
     navTypeElements[i].textContent = typesPokemon[nextIndex];
   }
 };
