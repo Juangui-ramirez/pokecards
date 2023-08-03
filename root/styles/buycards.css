@@ -61,7 +61,7 @@ h1 {
 .grid-container {
   width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   justify-items: center;
 }
 
@@ -122,7 +122,7 @@ h1 {
 
 .btnMore {
   color: white;
-  background-color:  #306bb3;
+  background-color: #306bb3;
   width: 12vw;
   font-weight: 600;
   padding: 2% 2%;
@@ -136,4 +136,47 @@ h1 {
   font-weight: 500;
   font-size: 14px;
   color: #306bb3;
+}
+
+@media (min-width: 320px) and (max-width: 576px) {
+  .info {
+    margin-top: 30px;
+    gap: 0;
+  }
+
+  h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .info p {
+    font-size: 15px;
+    text-align: center;
+    margin: 5%;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  }
+
+  .headerCard p,
+  .footerCard p {
+    font-size: 80%;
+  }
+
+  .btnCard {
+    width: auto;
+    height: auto;
+  }
+
+  .more-cards {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0px;
+  }
+
+  .btnMore{
+    width: auto;
+    height: 50px;
+  }
 }
