@@ -24,7 +24,7 @@ const renderCards = (pokemons) => {
           <img class = "imgPoke" src = "${pokemon.sprites.front_default}">
           <div class = "footerCard">
               <p>Exp ${pokemon.base_experience}</p>
-              <a href = "./pokemonDetails.html?pokemon=${pokemon.id}">
+              <a href = "./pokemondetails.html?pokemon=${pokemon.id}">
               <button class = "btnCard">Buy</button>
               </a>
           </div>`;
