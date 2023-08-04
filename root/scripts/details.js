@@ -6,7 +6,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   const spriteType =
     "https://raw.githubusercontent.com/msikma/pokesprite/master/misc/type-logos/gen8/";
 
-  console.log(pokemon);
+  const arrowLeftBtn = document.querySelector(".prev-btn");
+  arrowLeftBtn.addEventListener("click", async () => {
+    const prevPokemonId = pokemon.id - 1;
+    const prevPokemon = pokemons.find((p) => p.id === prevPokemonId);
+    if (prevPokemon) {
+      window.location.href = `?pokemon=${prevPokemon.id}`;
+    }
+  });
+
+  const arrowRightBtn = document.querySelector(".next-btn");
+  arrowRightBtn.addEventListener("click", async () => {
+    const nextPokemonId = pokemon.id + 1;
+    const nextPokemon = pokemons.find((p) => p.id === nextPokemonId);
+    if (nextPokemon) {
+      window.location.href = `?pokemon=${nextPokemon.id}`;
+    }
+  });
 
   const loadImage = (src) =>
     new Promise((resolve, reject) => {
@@ -60,23 +76,43 @@ document.addEventListener("DOMContentLoaded", async () => {
             <span>${pokemon.stats[0].base_stat}</span>
           </div>
       <p>${pokemon.stats[1].stat.name}</p>
-      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(pokemon.stats[1].base_stat)} ${getFillPercentage(pokemon.stats[1].base_stat)}%, #fff ${getFillPercentage(pokemon.stats[1].base_stat)}%);">
+      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(
+        pokemon.stats[1].base_stat
+      )} ${getFillPercentage(
+        pokemon.stats[1].base_stat
+      )}%, #fff ${getFillPercentage(pokemon.stats[1].base_stat)}%);">
       <span>${pokemon.stats[1].base_stat}</span>
     </div>
       <p>${pokemon.stats[2].stat.name}</p>
-      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(pokemon.stats[2].base_stat)} ${getFillPercentage(pokemon.stats[2].base_stat)}%, #fff ${getFillPercentage(pokemon.stats[2].base_stat)}%);">
+      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(
+        pokemon.stats[2].base_stat
+      )} ${getFillPercentage(
+        pokemon.stats[2].base_stat
+      )}%, #fff ${getFillPercentage(pokemon.stats[2].base_stat)}%);">
       <span>${pokemon.stats[2].base_stat}</span>
     </div>
       <p>${pokemon.stats[3].stat.name}</p>
-      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(pokemon.stats[3].base_stat)} ${getFillPercentage(pokemon.stats[3].base_stat)}%, #fff ${getFillPercentage(pokemon.stats[3].base_stat)}%);">
+      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(
+        pokemon.stats[3].base_stat
+      )} ${getFillPercentage(
+        pokemon.stats[3].base_stat
+      )}%, #fff ${getFillPercentage(pokemon.stats[3].base_stat)}%);">
       <span>${pokemon.stats[3].base_stat}</span>
     </div>
       <p>${pokemon.stats[4].stat.name}</p>
-      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(pokemon.stats[4].base_stat)} ${getFillPercentage(pokemon.stats[4].base_stat)}%, #fff ${getFillPercentage(pokemon.stats[4].base_stat)}%);">
+      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(
+        pokemon.stats[4].base_stat
+      )} ${getFillPercentage(
+        pokemon.stats[4].base_stat
+      )}%, #fff ${getFillPercentage(pokemon.stats[4].base_stat)}%);">
       <span>${pokemon.stats[4].base_stat}</span>
     </div>
       <p>${pokemon.stats[5].stat.name}</p>
-      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(pokemon.stats[5].base_stat)} ${getFillPercentage(pokemon.stats[5].base_stat)}%, #fff ${getFillPercentage(pokemon.stats[5].base_stat)}%);">
+      <div class="stat-bar" style="background: linear-gradient(to right, ${mapColor(
+        pokemon.stats[5].base_stat
+      )} ${getFillPercentage(
+        pokemon.stats[5].base_stat
+      )}%, #fff ${getFillPercentage(pokemon.stats[5].base_stat)}%);">
       <span>${pokemon.stats[5].base_stat}</span>
     </div>
     </div>
@@ -101,4 +137,4 @@ function mapColor(statValue) {
   } else {
     return "#FF0000";
   }
-};
+}

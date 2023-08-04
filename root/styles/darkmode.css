@@ -14,7 +14,7 @@ body.darkMode {
 .darkMode .info > h1,
 .darkMode .info > p,
 .darkMode a,
-.darkMode .titleBlog {
+.darkMode .titleBlog,.darkMode .prev-btn,.darkMode .next-btn {
   color: white;
 }
 
@@ -31,3 +31,4 @@ body.darkMode {
 .darkMode .navType.activeLink {
   border-bottom: 2px solid  #306bb3;
 }
+

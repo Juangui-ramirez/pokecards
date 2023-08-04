@@ -53,7 +53,6 @@ main {
   margin: 0 auto;
   padding: 10px;
   border-radius: 10px;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .stat-card h2 {
@@ -66,14 +65,104 @@ main {
 }
 
 .stat-bar {
-    height: auto;
-    border-radius: 10px;
-  }
+  height: auto;
+  border-radius: 10px;
+}
 
-  .stat-bar span{
-    margin-left: 2%;
-  }
+.stat-bar span {
+  margin-left: 2%;
+}
+
+.navigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.prev-btn,
+.next-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 200px;
+}
 
 footer {
   margin-top: 310px;
+}
+
+@media (min-width: 320px) and (max-width: 576px) {
+  main {
+    padding: 5%;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    position: relative;
+  }
+
+  .card {
+    border-radius: 5%;
+    position: relative;
+  }
+
+  .card h1,
+  .card p {
+    font-size: 15px;
+  }
+
+  .header-card {
+    display: flex;
+    justify-content: space-around;
+    padding: 3%;
+    color: black;
+  }
+
+  .types {
+    display: flex;
+    justify-content: center;
+  }
+
+  .types img {
+    width: 20%;
+    z-index: 2;
+  }
+
+  .imgpoke {
+    width: 100%;
+    position: relative;
+    bottom: 15px;
+    z-index: 1;
+  }
+
+  .stat-card {
+    position: absolute;
+    bottom: -230px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .navigation {
+    position: absolute;
+    transform: translateY(-100%);
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+  }
+
+  .prev-btn,
+  .next-btn {
+    font-size: 100px;
+  }
+
+  footer {
+    margin-top: 240px;
+  }
 }
